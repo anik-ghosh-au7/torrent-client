@@ -73,6 +73,17 @@ if (argv.add) {
 		if (!fs.existsSync(folderName)) {
 			fs.mkdirSync(folderName);
 		}
+		// Check the status of the download
+		setInterval(() => {
+			const swarm = engine.swarm;
+			console.log(
+				`Downloaded: ${swarm.downloaded} | Uploaded: ${
+					swarm.uploaded
+				} | Download speed: ${swarm.downloadSpeed()} KB/s | Upload speed: ${swarm.uploadSpeed()} KB/s | Total peers: ${
+					swarm.wires.length
+				}`
+			);
+		}, 1000);
 		engine.files.forEach((file) => {
 			const outputFile = fs.createWriteStream(`${folderName}/${file.name}`);
 			console.log(`Starting download: ${file.name}`);
