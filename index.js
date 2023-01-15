@@ -2,7 +2,7 @@
 const torrentStream = require('torrent-stream');
 const yargs = require('yargs');
 const fs = require('fs');
-const getDate = require('./util');
+const { getDate, getSpeed } = require('./util');
 
 const argv = yargs
 	.version('1.0.0')
@@ -95,7 +95,9 @@ if (argv.add) {
 			process.stdout.write(
 				`Downloaded: ${swarm.downloaded} | Uploaded: ${
 					swarm.uploaded
-				} | Download speed: ${swarm.downloadSpeed()} KB/s | Upload speed: ${swarm.uploadSpeed()} KB/s | Total peers: ${
+				} | Download speed: ${getSpeed(
+					swarm.downloadSpeed()
+				)} | Upload speed: ${getSpeed(swarm.uploadSpeed())} | Total peers: ${
 					swarm.wires.length
 				}\t`
 			);
