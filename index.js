@@ -85,25 +85,28 @@ if (argv.add) {
 		}
 		let status = 0;
 		// Check the status of the download
-		setInterval(() => {
-			if (status > 0) {
-				process.stdout.clearLine(); // clear current text
-				process.stdout.cursorTo(0); // move cursor to beginning of line
-			} else process.stdout.write('Download in progress, please wait\n');
-
-			const swarm = engine.swarm;
-			process.stdout.write(
-				`Downloaded: ${swarm.downloaded} | Uploaded: ${
-					swarm.uploaded
-				} | Download speed: ${getSpeed(
-					swarm.downloadSpeed()
-				)} | Upload speed: ${getSpeed(swarm.uploadSpeed())} | Total peers: ${
-					swarm.wires.length
-				}\t`
-			);
-			status += 1;
-		}, 1000);
 		engine.files.forEach((file) => {
+			setInterval(() => {
+				if (status > 0) {
+					process.stdout.clearLine(); // clear current text
+					process.stdout.cursorTo(0); // move cursor to beginning of line
+				} else process.stdout.write('Download in progress, please wait...\n');
+
+				const swarm = engine.swarm;
+				const downloaded = swarm.downloaded;
+				const downloadSpeed = swarm.downloadSpeed();
+				const remainingTime = (file.length - downloaded) / downloadSpeed;
+				process.stdout.write(
+					`Downloaded: ${downloaded} | Uploaded: ${
+						swarm.uploaded
+					} | Download speed: ${getSpeed(
+						downloadSpeed
+					)} | Upload speed: ${getSpeed(swarm.uploadSpeed())} | Total peers: ${
+						swarm.wires.length
+					} | Time remaining: ${remainingTime} seconds\t`
+				);
+				status += 1;
+			}, 1000);
 			const outputFile = fs.createWriteStream(`${folderName}/${file.name}`);
 			console.log(`Starting download: ${file.name}`);
 			const stream = file.createReadStream();

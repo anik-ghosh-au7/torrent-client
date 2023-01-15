@@ -1,6 +1,6 @@
 {
 	"name": "torrent-client",
-	"version": "1.1.5",
+	"version": "1.1.6",
 	"description": "cli client to download torrents",
 	"main": "index.js",
 	"bin": "index.js",
