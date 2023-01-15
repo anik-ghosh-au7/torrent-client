@@ -84,6 +84,7 @@ if (argv.add) {
 			fs.mkdirSync(folderName);
 		}
 		let status = 0;
+		const totalLenth = engine.files.reduce((acc, item) => acc + item.length, 0);
 		// Check the status of the download
 		engine.files.forEach((file) => {
 			setInterval(() => {
@@ -95,7 +96,9 @@ if (argv.add) {
 				const swarm = engine.swarm;
 				const downloaded = swarm.downloaded;
 				const downloadSpeed = swarm.downloadSpeed();
-				const remainingTime = (file.length - downloaded) / downloadSpeed;
+				const remainingTime = downloadSpeed
+					? (totalLenth - downloaded) / downloadSpeed
+					: 0;
 				process.stdout.write(
 					`Downloaded: ${downloaded} | Uploaded: ${
 						swarm.uploaded
