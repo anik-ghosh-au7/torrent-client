@@ -29,6 +29,7 @@ module.exports = {
 		const hDisplay = h > 0 ? h + (h == 1 ? ' hr, ' : ' hrs, ') : '';
 		const mDisplay = m > 0 ? m + (m == 1 ? ' min, ' : ' mins, ') : '';
 		const sDisplay = s > 0 ? s + (s == 1 ? ' sec' : ' secs') : '';
-		return dDisplay + hDisplay + mDisplay + sDisplay;
+		const remainingTime = dDisplay + hDisplay + mDisplay + sDisplay;
+		return remainingTime && remainingTime !== '' ? remainingTime : '0 sec';
 	},
 };
