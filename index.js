@@ -44,6 +44,7 @@ if (argv.add) {
 		console.log('Download in progress, please wait');
 		engineTimeout = setTimeout(() => {
 			console.log(`Download complete`);
+			console.timeEnd('Time taken:');
 			process.exit(0);
 		}, 5000);
 	});
@@ -62,6 +63,7 @@ if (argv.add) {
 	});
 
 	engine.on('ready', () => {
+		console.time('Time taken:');
 		const folderName =
 			engine.files?.length > 1
 				? `${argv.path || `.`}/${getDate()}`
