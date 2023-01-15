@@ -26,9 +26,9 @@ module.exports = {
 		} else if (d > 0) {
 			return d + (d == 1 ? ' day' : ' days');
 		} else if (h > 0) {
-			return h + (h == 1 ? ' hour' : ' hours');
+			return h + ':' + m + (h == 1 ? ' hour' : ' hours');
 		} else if (m > 0) {
-			return m + (m == 1 ? ' minute' : ' minutes');
+			return m + ':' + s + (m == 1 ? ' minute' : ' minutes');
 		} else {
 			return s + (s == 1 ? ' second' : ' seconds');
 		}
