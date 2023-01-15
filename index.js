@@ -27,17 +27,17 @@ if (argv.add) {
 	let progressCount = 0;
 	const engine = torrentStream(argv.add);
 
-	// engine.on('download', (pieceIndex) => {
-	// 	console.log(`Piece ${pieceIndex || ''} has been downloaded`);
-	// });
+	engine.on('download', (pieceIndex) => {
+		console.log(`Piece ${pieceIndex || ''} has been downloaded`);
+	});
 
-	// engine.on('upload', (pieceIndex, offset, length) => {
-	// 	console.log(
-	// 		`Piece ${
-	// 			pieceIndex || ''
-	// 		} has been uploaded with offset ${offset} and length ${length}`
-	// 	);
-	// });
+	engine.on('upload', (pieceIndex, offset, length) => {
+		console.log(
+			`Piece ${
+				pieceIndex || ''
+			} has been uploaded with offset ${offset} and length ${length}`
+		);
+	});
 
 	engine.on('idle', () => {
 		if (engineTimeout) {
@@ -49,9 +49,7 @@ if (argv.add) {
 			process.stdout.cursorTo(0); // move cursor to beginning of line
 		}
 		process.stdout.write(
-			'Download in progress, please wait' +
-				'.'.repeat((progressCount % 3) + 1) +
-				'\t'
+			'Downloading' + '.'.repeat((progressCount % 3) + 1) + '\t'
 		);
 		progressCount += 1;
 		engineTimeout = setTimeout(() => {
@@ -88,14 +86,9 @@ if (argv.add) {
 			(acc, item) => acc + item.length,
 			0
 		);
-		// Check the status of the download
 		engine.files.forEach((file) => {
 			setInterval(() => {
-				if (status > 0) {
-					process.stdout.clearLine(); // clear current text
-					process.stdout.cursorTo(0); // move cursor to beginning of line
-				} else process.stdout.write('Download in progress, please wait...\n');
-
+				if (status === 0) process.stdout.write('\n');
 				const swarm = engine.swarm;
 				const downloaded = swarm.downloaded;
 				const downloadSpeed = swarm.downloadSpeed();
@@ -109,7 +102,7 @@ if (argv.add) {
 						downloadSpeed
 					)} | Upload speed: ${getSpeed(swarm.uploadSpeed())} | Total peers: ${
 						swarm.wires.length
-					} | Time remaining: ${getTime(remainingTime)}\t`
+					} | Time remaining: ${getTime(remainingTime)}\n`
 				);
 				status += 1;
 			}, 1000);
