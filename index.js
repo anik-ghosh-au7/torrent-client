@@ -27,17 +27,17 @@ if (argv.add) {
 	let progressCount = 0;
 	const engine = torrentStream(argv.add);
 
-	engine.on('download', (pieceIndex) => {
-		console.log(`Piece ${pieceIndex || ''} has been downloaded`);
-	});
+	// engine.on('download', (pieceIndex) => {
+	// 	console.log(`Piece ${pieceIndex || ''} has been downloaded`);
+	// });
 
-	engine.on('upload', (pieceIndex, offset, length) => {
-		console.log(
-			`Piece ${
-				pieceIndex || ''
-			} has been uploaded with offset ${offset} and length ${length}`
-		);
-	});
+	// engine.on('upload', (pieceIndex, offset, length) => {
+	// 	console.log(
+	// 		`Piece ${
+	// 			pieceIndex || ''
+	// 		} has been uploaded with offset ${offset} and length ${length}`
+	// 	);
+	// });
 
 	engine.on('idle', () => {
 		if (engineTimeout) {
