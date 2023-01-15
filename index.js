@@ -24,6 +24,7 @@ const argv = yargs
 let engineTimeout = null;
 
 if (argv.add) {
+	let progressCount = 0;
 	const engine = torrentStream(argv.add);
 
 	engine.on('download', (pieceIndex) => {
@@ -43,10 +44,19 @@ if (argv.add) {
 			clearInterval(engineTimeout);
 			engineTimeout = null;
 		}
-		console.log('Download in progress, please wait');
+		if (progressCount > 1) {
+			process.stdout.clearLine(); // clear current text
+			process.stdout.cursorTo(0); // move cursor to beginning of line
+		}
+		process.stdout.write(
+			'Download in progress, please wait' +
+				'.'.repeat((progressCount % 3) + 1) +
+				'\t'
+		);
+		progressCount += 1;
 		engineTimeout = setTimeout(() => {
 			console.log(`\nDownload complete`);
-			console.timeEnd('Time taken:');
+			console.timeEnd('Time taken');
 			process.exit(0);
 		}, 5000);
 	});
@@ -65,7 +75,7 @@ if (argv.add) {
 	});
 
 	engine.on('ready', () => {
-		console.time('Time taken:');
+		console.time('Time taken');
 		const folderName =
 			engine.files?.length > 1
 				? `${argv.path || `.`}/${getDate()}`
@@ -79,7 +89,7 @@ if (argv.add) {
 			if (status > 0) {
 				process.stdout.clearLine(); // clear current text
 				process.stdout.cursorTo(0); // move cursor to beginning of line
-			}
+			} else process.stdout.write('\n');
 
 			const swarm = engine.swarm;
 			process.stdout.write(
