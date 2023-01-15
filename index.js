@@ -6,7 +6,7 @@ const getDate = require('./util');
 
 const argv = yargs
 	.version('1.0.0')
-	.usage('A simple command-line tool to download torrent files')
+	.usage('A light weight command-line tool to download torrent files')
 	.option('a', {
 		alias: 'add',
 		describe: 'Add a torrent file or magnet link',

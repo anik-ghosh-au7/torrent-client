@@ -1,6 +1,6 @@
 # torrent-client
 
-CLI client to download torrents written in Node.js
+A light weight CLI client written in Node.js to download torrents.
 
 For detailed information about all the supporetd operations check [link](https://www.npmjs.com/package/torrent-client)
 
@@ -17,12 +17,12 @@ npx torrent-client --add<Torrent File | Magnet Link> --path <Download Path>
 ### Help
 
 ```sh
-A simple command-line tool to download torrent files
+A light weight command-line tool to download torrent files
 
 Options:
       --version  Show version number                                   [boolean]
   -a, --add      Add a torrent file or magnet link           [string] [required]
-  -p, --path     Path to download the file                              [string]
+  -p, --path     Path to download the file(s)                           [string]
       --help     Show help                                             [boolean]
 
 ```
