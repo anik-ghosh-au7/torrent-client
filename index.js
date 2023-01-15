@@ -2,7 +2,7 @@
 const torrentStream = require('torrent-stream');
 const yargs = require('yargs');
 const fs = require('fs');
-const { getDate, getSpeed } = require('./util');
+const { getDate, getSpeed, getTime } = require('./util');
 
 const argv = yargs
 	.version('1.0.0')
@@ -84,7 +84,10 @@ if (argv.add) {
 			fs.mkdirSync(folderName);
 		}
 		let status = 0;
-		const totalLenth = engine.files.reduce((acc, item) => acc + item.length, 0);
+		const totalLength = engine.files.reduce(
+			(acc, item) => acc + item.length,
+			0
+		);
 		// Check the status of the download
 		engine.files.forEach((file) => {
 			setInterval(() => {
@@ -97,7 +100,7 @@ if (argv.add) {
 				const downloaded = swarm.downloaded;
 				const downloadSpeed = swarm.downloadSpeed();
 				const remainingTime = downloadSpeed
-					? (totalLenth - downloaded) / downloadSpeed
+					? (totalLength - downloaded) / downloadSpeed
 					: 0;
 				process.stdout.write(
 					`Downloaded: ${downloaded} | Uploaded: ${
@@ -106,7 +109,7 @@ if (argv.add) {
 						downloadSpeed
 					)} | Upload speed: ${getSpeed(swarm.uploadSpeed())} | Total peers: ${
 						swarm.wires.length
-					} | Time remaining: ${remainingTime} seconds\t`
+					} | Time remaining: ${getTime(remainingTime)}\t`
 				);
 				status += 1;
 			}, 1000);
