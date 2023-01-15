@@ -45,7 +45,7 @@ if (argv.add) {
 		}
 		console.log('Download in progress, please wait');
 		engineTimeout = setTimeout(() => {
-			console.log(`Download complete`);
+			console.log(`\nDownload complete`);
 			console.timeEnd('Time taken:');
 			process.exit(0);
 		}, 5000);
@@ -73,16 +73,23 @@ if (argv.add) {
 		if (!fs.existsSync(folderName)) {
 			fs.mkdirSync(folderName);
 		}
+		let status = 0;
 		// Check the status of the download
 		setInterval(() => {
+			if (status > 0) {
+				process.stdout.clearLine(); // clear current text
+				process.stdout.cursorTo(0); // move cursor to beginning of line
+			}
+
 			const swarm = engine.swarm;
-			console.log(
+			process.stdout.write(
 				`Downloaded: ${swarm.downloaded} | Uploaded: ${
 					swarm.uploaded
 				} | Download speed: ${swarm.downloadSpeed()} KB/s | Upload speed: ${swarm.uploadSpeed()} KB/s | Total peers: ${
 					swarm.wires.length
-				}`
+				}\t`
 			);
+			status += 1;
 		}, 1000);
 		engine.files.forEach((file) => {
 			const outputFile = fs.createWriteStream(`${folderName}/${file.name}`);
