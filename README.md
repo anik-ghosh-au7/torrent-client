@@ -11,7 +11,7 @@ Here is a quick guide on getting started with the `torrent-client` tool.
 ### Usage
 
 ```sh
-npx torrent-client --path <Path> --add<Torrent File or Magnet Link>
+npx torrent-client --add<Torrent File | Magnet Link> --path <Download Path>
 ```
 
 ### Help
