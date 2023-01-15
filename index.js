@@ -92,8 +92,7 @@ if (argv.add) {
 				const swarm = engine.swarm;
 				const downloaded = swarm.downloaded;
 				const downloadSpeed = swarm.downloadSpeed();
-				const remainingTime =
-					((totalLength - downloaded) * 100) / downloadSpeed;
+				const remainingTime = (totalLength - downloaded) / downloadSpeed;
 				process.stdout.write(
 					`Downloaded: ${downloaded} | Uploaded: ${
 						swarm.uploaded
