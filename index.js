@@ -31,13 +31,13 @@ if (argv.add) {
 	// 	console.log(`Piece ${pieceIndex || ''} has been downloaded`);
 	// });
 
-	engine.on('upload', (pieceIndex, offset, length) => {
-		console.log(
-			`Piece ${
-				pieceIndex || ''
-			} has been uploaded with offset ${offset} and length ${length}`
-		);
-	});
+	// engine.on('upload', (pieceIndex, offset, length) => {
+	// 	console.log(
+	// 		`Piece ${
+	// 			pieceIndex || ''
+	// 		} has been uploaded with offset ${offset} and length ${length}`
+	// 	);
+	// });
 
 	engine.on('idle', () => {
 		if (engineTimeout) {
@@ -89,7 +89,7 @@ if (argv.add) {
 			if (status > 0) {
 				process.stdout.clearLine(); // clear current text
 				process.stdout.cursorTo(0); // move cursor to beginning of line
-			} else process.stdout.write('\n');
+			} else process.stdout.write('Download in progress, please wait\n');
 
 			const swarm = engine.swarm;
 			process.stdout.write(
