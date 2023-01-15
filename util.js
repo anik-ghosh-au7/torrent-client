@@ -10,6 +10,7 @@ module.exports = {
 	},
 	getSpeed: (speed) => {
 		if (speed < 1000) return `${speed} KB/s`;
-		else return `${(speed / 1024).toFixed(2)} MB/s`;
+		else if (speed < 1000000) return `${(speed / 1000).toFixed(2)} MB/s`;
+		else return `${(speed / 1000000).toFixed(2)} GB/s`;
 	},
 };
