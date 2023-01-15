@@ -27,12 +27,14 @@ if (argv.add) {
 	const engine = torrentStream(argv.add);
 
 	engine.on('download', (pieceIndex) => {
-		console.log(`Piece ${pieceIndex} has been downloaded`);
+		console.log(`Piece ${pieceIndex || ''} has been downloaded`);
 	});
 
 	engine.on('upload', (pieceIndex, offset, length) => {
 		console.log(
-			`Piece ${pieceIndex} has been uploaded with offset ${offset} and length ${length}`
+			`Piece ${
+				pieceIndex || ''
+			} has been uploaded with offset ${offset} and length ${length}`
 		);
 	});
 
@@ -50,7 +52,7 @@ if (argv.add) {
 	});
 
 	engine.on('verifying', (pieceIndex) => {
-		console.log(`Piece ${pieceIndex} is being verified`);
+		console.log(`Piece ${pieceIndex || ''} is being verified`);
 	});
 
 	engine.on('metadata', () => {
