@@ -9,9 +9,9 @@ module.exports = {
 		return today;
 	},
 	getSpeed: (speed) => {
-		if (speed < 100000) return `${speed} KB/s`;
-		else if (speed < 100000000) return `${(speed / 1000).toFixed(2)} MB/s`;
-		else return `${(speed / 100000000).toFixed(2)} GB/s`;
+		if (speed < 1048576) return `${speed / 1024} KB/s`;
+		else if (speed < 1073741824) return `${(speed / 1048576).toFixed(2)} MB/s`;
+		else return `${(speed / 1073741824).toFixed(2)} GB/s`;
 	},
 	getTime: (seconds) => {
 		if (!seconds || isNaN(seconds)) return '0';
