@@ -1,6 +1,6 @@
 # torrent-client
 
-A light weight CLI client written in Node.js to download torrent files. This internally uses the `torrent-stream` package to stream the files from torrents.
+A light weight CLI client written in Node.js to download torrent files. This internally uses the `torrent-stream` package to get the files.
 
 For detailed information check the github [repo](https://github.com/anik-ghosh-au7/torrent-client).
 
@@ -11,7 +11,7 @@ Here is a quick guide on getting started with the `torrent-client` tool.
 ### Usage
 
 ```sh
-npx torrent-client --add<Torrent File | Magnet Link> --path <Download Path>
+npx torrent-client --add <Torrent File | Magnet Link> --path <Download Path>
 ```
 
 ### Help
