@@ -22,7 +22,7 @@ module.exports = {
 		const s = Math.floor(seconds % 60);
 
 		if (d > 365) {
-			return 'infinity';
+			return '∞';
 		}
 
 		const dDisplay = d > 0 ? d + (d == 1 ? ' day, ' : ' days, ') : '';
@@ -30,6 +30,6 @@ module.exports = {
 		const mDisplay = m > 0 ? m + (m == 1 ? ' min, ' : ' mins, ') : '';
 		const sDisplay = s > 0 ? s + (s == 1 ? ' sec' : ' secs') : '';
 		const remainingTime = dDisplay + hDisplay + mDisplay + sDisplay;
-		return remainingTime && remainingTime !== '' ? remainingTime : '0 sec';
+		return remainingTime && remainingTime !== '' ? remainingTime : '0';
 	},
 };
